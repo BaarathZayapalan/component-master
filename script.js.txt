@@ -1,0 +1,32 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const shareBtn = document.getElementById("shareBtn");
+  const shareBubble = document.getElementById("shareBubble");
+
+  if (!shareBtn || !shareBubble) {
+    console.error("Share button or share menu not found.");
+    return;
+  }
+
+  shareBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    const isOpen = shareBubble.hidden;
+
+    shareBubble.hidden = !isOpen;
+    shareBubble.classList.toggle("show", isOpen);
+    shareBtn.classList.toggle("active", isOpen);
+
+    shareBtn.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  shareBubble.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+
+  document.addEventListener("click", () => {
+    shareBubble.hidden = true;
+    shareBubble.classList.remove("show");
+    shareBtn.classList.remove("active");
+    shareBtn.setAttribute("aria-expanded", "false");
+  });
+});
